@@ -34,7 +34,7 @@ def updateView(request, f_oid):
             form.save()
             return redirect('show_url')
 
-    template_name = 'app_crud/order.html'
+    template_name = 'order.html'
     context = {'obj': obj}
     return render(request, template_name, context)
     
@@ -44,6 +44,6 @@ def deleteView(request, f_oid):
         obj.delete()
         return redirect("show_url")
 
-    template_name = 'app_crud/confirmation.html'
+    template_name = 'confirmation.html'
     context = {'obj': obj}
     return render(request, template_name, context)

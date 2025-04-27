@@ -12,7 +12,7 @@
         {% csrf_token %}
         <h2>Are you sure you want to delete this data? </h2>
         <input type="submit" value="YES" class="btn btn-danger">
-        <button class="btn btn-seccess"><a href="{% url 'show.url' %}">NO</a></button>
+        <button class="btn btn-seccess"><a href="{% url 'show_url' %}">NO</a></button>
     </form>
 </div>
 {% endblock %}

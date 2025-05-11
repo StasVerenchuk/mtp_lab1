@@ -4,6 +4,8 @@ from django.urls import reverse
 
 class Category(models.Model):
     category = models.CharField('Категорія', max_length=250, help_text='Максимум 250 символів')
+    slug = models.SlugField('Слаг', blank=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = 'Категорія для новин'
@@ -11,6 +13,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category
+
+    def get_absolute_url(self):
+        try:
+            url = reverse('articles-category-list', kwargs={'slug': self.slug})
+        except:
+            url = "/"
+
+        return url
 
 
 class Article(models.Model):
@@ -33,7 +43,7 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         try:
-            url = reverse('news-detail', kwargs={
+            url = reverse('article-detail', kwargs={
                 'year': self.pub_date.strftime("%Y"),
                 'month': self.pub_date.strftime("%m"),
                 'day': self.pub_date.strftime("%d"),

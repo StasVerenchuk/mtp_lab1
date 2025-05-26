@@ -1,56 +1,38 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+{% block title %}Публікації{% endblock %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'main.css' %}">
 
-    <title>Публікації</title>
+{% block content %}
+    <a href="/">
+        <h4>На головну</h4>
+    </a>
 
-</head>
-<body>
-    <div class="container">
-        <a href="/">
-            <h4>На головну</h4>
-        </a>
+    <h1>Публікації</h1>
+    <br/>
 
-        <h1>Публікації</h1>
-        <br/>
+    {% if category %}
+        <h3>{{ category }}</h3>
+    {% endif %}
 
-        {% if category %}
-            <h3>{{ category }}</h3>
-        {% endif %}
+    {% for item in items %}
+        <div class="articles-row">
+            <a href="{{ item.get_absolute_url }}">
+                <h4>{{ item.title }}</h4>
+            </a>
+            <h5>
+                {{ item.pub_date|date:"j E Y"|safe|linebreaks }}
+            </h5>
+            <p>
+                {{ item.description|safe|escape|striptags|truncatewords_html:32 }}
+            </p>
 
-        {% for item in items %}
-            <div class="articles-row">
-                <a href="{{ item.get_absolute_url }}">
-                    <h4>{{ item.title }}</h4>
-                </a>
-                <h5>
-                    {{ item.pub_date|date:"j E Y"|safe|linebreaks }}
-                </h5>
-                <p>
-                    {{ item.description|safe|escape|striptags|truncatewords_html:32 }}
-                </p>
+            {% if item.images.all %}
+                <div class="container-image">
+                    <img class="img" src="{{ item.images.all.0.image.url }}" alt="Зображення" width="300" height="200"/>
+                </div>
+            {% endif %}
 
-                {% if item.images.all %}
-                    <div class="container-image">
-                        <img class="img" src="{{ item.images.all.0.image.url }}" alt="Зображення" width="300" height="200"/>
-                    </div>
-                {% endif %}
-
-                <div class="clearfix"></div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <!-- Підключення JS -->
-     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+            <div class="clearfix"></div>
+        </div>
+    {% endfor %}
+{% endblock %}

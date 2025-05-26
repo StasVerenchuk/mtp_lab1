@@ -1,0 +1,22 @@
+/* Заголовок першого рівня у контейнері */
+.container > h1 {
+    color: #09b3bf;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Елементи breadcrumb-меню */
+.breadcrumb > li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.breadcrumb > li::after {
+    content: "/";
+    margin-left: 5px;
+    color: #ccc;
+}
+
+.breadcrumb > li:last-child::after {
+    content: "";
+}

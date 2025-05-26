@@ -9,9 +9,6 @@ class HomePageView(TemplateView):
     template_name = 'index.html'
     context_object_name = 'categories'
 
-    # def get(self, request, **kwargs):
-    #     return render(request, 'index.html', context=None)
-
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['articles'] = Article.objects.filter(main_page=True)[:5]
